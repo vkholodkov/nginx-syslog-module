@@ -194,21 +194,6 @@ ngx_http_syslog_handler(ngx_http_request_t *r)
     return NGX_OK;
 }
 
-static ngx_int_t
-ngx_syslog_handler(ngx_log_t *log, u_char *buf, size_t len)
-{
-    u_char   errstr[NGX_MAX_ERROR_STR], *p;
-
-    p = ngx_cpymem(errstr, buf,
-        len >= NGX_MAX_ERROR_STR ? NGX_MAX_ERROR_STR - 1 : len);
-
-    *p++ = '\0';
-
-    syslog(LOG_CRIT, "%s", errstr);
-
-    return NGX_OK;
-}
-
 static void *
 ngx_http_syslog_create_main_conf(ngx_conf_t *cf)
 {
